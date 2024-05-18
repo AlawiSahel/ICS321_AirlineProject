@@ -37,7 +37,7 @@ function Home() {
       <NavBar />
       <div className="mb-20 min-h-screen p-10">
         <Ad />
-        <div className="mt-10 flex flex-col items-center bg-white p-10 rounded-lg shadow-md w-full max-w-screen-lg">
+        <div className="mt-10 flex flex-col items-center bg-white p-10 rounded-lg shadow-md w-full ">
           <div className="flex flex-row items-center mb-4 w-full">
             <div className="flex-grow mr-2">
               <AirportSelector
@@ -88,7 +88,7 @@ function Home() {
           </div>
 
           <button
-            className="bg-green-500 text-white font-bold py-2 px-4 rounded-full w-full max-w-xs"
+            className={`sm:mt-0 w-1/2 bg-primary text-secondaryBackground px-6 py-3 rounded-md border-none transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl focus:outline-none hover:bg-secondaryBackground hover:text-primary`}
             onClick={handleSearch}
           >
             Search Flights
