@@ -29,7 +29,9 @@ const AirportSelector = ({ value, onChange, placeholder }) => {
           response = await axios.get(
             `https://api.api-ninjas.com/v1/airports?lat=${userLat}&lng=${userLng}`,
             {
-              headers: { "X-Api-Key": "YOUR_API_KEY" },
+              headers: {
+                "X-Api-Key": "sEB49VPiu5jM8byTSs976w==HSHXHcAbEiNhH8JF",
+              },
             }
           );
         }
