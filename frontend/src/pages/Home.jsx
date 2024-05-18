@@ -1,126 +1,101 @@
 import NavBar from "./../components/nav/NavBar.jsx";
 import Ad from "./../components/ad/Ad.jsx";
-import GroupSlider from "./../components/slider/slider.jsx";
-import BookCard from "./../components/bookCard/BookCard.jsx";
 import Footer from "./../components/footer/Footer.jsx";
-import { useState, useEffect } from "react";
-import ReactLoading from "react-loading";
-
-// const books = [
-//   {
-//     title: "1984",
-//     subtitle: "A Novel by George Orwell",
-//     offerType: "Selling",
-//     condition: "Good",
-//     newPrice: "$9.99",
-//     oldPrice: "$12.99",
-//     image:
-//       "https://i.guim.co.uk/img/media/f51df963039740fa2cb5f1b6649e571a0d31579e/0_0_1355_2079/master/1355.jpg?width=300&quality=45&auto=format&fit=max&dpr=2&s=0166526b8d4f5d40300085c26a427cea",
-//   },
-//   {
-//     title: "To Kill a Mockingbird",
-//     subtitle: "A Novel by Harper Lee",
-//     offerType: "Borrowing",
-//     condition: "Good",
-//     newPrice: "$11.50",
-//     oldPrice: "$14.99",
-//     image: "https://m.media-amazon.com/images/I/91TCHkU6UrL._SY466_.jpg",
-//   },
-//   {
-//     title: "The Hobbit",
-//     subtitle: "A Novel by J.R.R. Tolkien",
-//     offerType: "Swap",
-//     condition: "Poor",
-//     newPrice: "$8.00",
-//     oldPrice: "$10.99",
-//     image:
-//       "https://www.adobe.com/express/create/cover/media_19d5e212dbe8553614c3a9fbabd4d7f219ab01c85.png?width=750&format=png&optimize=medium",
-//   },
-// ];
-
-// http://localhost:5000/api/v1/books/
+import { useState } from "react";
+import DatePicker from "react-date-picker";
+import Select from "react-select";
+import { FaExchangeAlt } from "react-icons/fa";
+import "react-date-picker/dist/DatePicker.css";
+import "react-calendar/dist/Calendar.css";
+import AirportSelector from "./../components/airportSelector/airportSelector.jsx";
 
 function Home() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [fromCity, setFromCity] = useState(null);
+  const [toCity, setToCity] = useState(null);
+  const [departureDate, setDepartureDate] = useState(new Date());
+  const [arrivalDate, setArrivalDate] = useState(new Date());
+  const [flightClass, setFlightClass] = useState(null);
 
-  useEffect(() => {
-    const fetchDataForPosts = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:5000/api/v1/books/recommendations`
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error: Status ${response.status}`);
-        }
-        let postsData = await response.json();
-        setData(postsData);
-        setError(null);
-      } catch (err) {
-        setError(err.message);
-        setData(null);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const flightClasses = [
+    { value: "guest", label: "Guest Class" },
+    { value: "business", label: "Business Class" },
+    { value: "first", label: "First Class" },
+  ];
 
-    fetchDataForPosts();
-  }, []);
+  const handleCitySwitch = () => {
+    const temp = fromCity;
+    setFromCity(toCity);
+    setToCity(temp);
+  };
 
-  console.log(data);
-
-  const books = data;
-
-  console.log(books);
+  const handleSearch = () => {
+    // Implement search functionality
+  };
 
   return (
-    // this code will be replaced by routes for all pages, but for now we keep it like this
     <div className="">
-      <NavBar></NavBar>
+      <NavBar />
       <div className="mb-20 min-h-screen p-10">
-        <Ad></Ad>
-        <div className="font-extrabold text-primary text-3xl mt-5 max-sm:text-2xl">
-          Genres
-        </div>
-
-        <div className="mt-5 mb-5 p-4 mr-3 ml-3 rounded-lg gap-2 ">
-          <GroupSlider />
-        </div>
-
-        <div className="font-extrabold text-primary text-3xl mt-5 max-sm:text-2xl mb-5">
-          Recommendations
-        </div>
-
-        <div className="grid   gap-6 md:grid-cols-2 sm:grid-cols-1 max-sm:justify-center">
-          {error ? (
-            <>{error} please restart the page</>
-          ) : loading ? (
-            <ReactLoading
-              type={"bars"}
-              color={"#533737"}
-              height={667}
-              width={375}
-            />
-          ) : (
-            data.data.books.map((book) => (
-              <BookCard
-                key={book._id}
-                id={book._id}
-                title={book.title}
-                subtitle={book.description}
-                offerType={book.offerType}
-                condition={book.bookCondition}
-                newPrice={book.price}
-                oldPrice={book.oldPrice}
-                image={book.image}
+        <Ad />
+        <div className="mt-10 flex flex-col items-center bg-white p-10 rounded-lg shadow-md w-full max-w-screen-lg">
+          <div className="flex flex-row items-center mb-4 w-full">
+            <div className="flex-grow mr-2">
+              <AirportSelector
+                value={fromCity}
+                onChange={setFromCity}
+                placeholder="From"
               />
-            ))
-          )}
+            </div>
+            <button
+              className="mx-2 p-2 bg-gray-200 rounded-full"
+              onClick={handleCitySwitch}
+            >
+              <FaExchangeAlt />
+            </button>
+            <div className="flex-grow ml-2">
+              <AirportSelector
+                value={toCity}
+                onChange={setToCity}
+                placeholder="To"
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-row items-center mb-4 w-full">
+            <div className="flex-grow mr-2">
+              <DatePicker
+                value={departureDate}
+                onChange={setDepartureDate}
+                className="w-full"
+              />
+            </div>
+            <div className="flex-grow ml-2">
+              <DatePicker
+                value={arrivalDate}
+                onChange={setArrivalDate}
+                className="w-full"
+              />
+            </div>
+            <div className="flex-grow ml-2">
+              <Select
+                options={flightClasses}
+                value={flightClass}
+                onChange={setFlightClass}
+                placeholder="Class"
+                className="w-full"
+              />
+            </div>
+          </div>
+
+          <button
+            className="bg-green-500 text-white font-bold py-2 px-4 rounded-full w-full max-w-xs"
+            onClick={handleSearch}
+          >
+            Search Flights
+          </button>
         </div>
       </div>
-
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }
