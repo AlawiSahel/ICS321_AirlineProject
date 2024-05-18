@@ -4,17 +4,36 @@ import { BsPersonCircle } from "react-icons/bs";
 
 function NavBar() {
   const [userData, setUserData] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const newData = JSON.parse(localStorage.getItem("currentUser"));
-    setUserData(newData);
-  }, [localStorage.getItem("currentUser")]);
-
-  const navigate = useNavigate();
+    const fetchUserData = async () => {
+      const email = localStorage.getItem("email");
+      if (email) {
+        try {
+          const response = await axios.get(`/api/user?email=${email}`);
+          setUserData(response.data);
+          setIsAdmin(response.data.userType === "Admin");
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      }
+    };
+    fetchUserData();
+  }, []);
 
   const handleProfileClick = () => {
     if (userData != null) {
       navigate("/Profile");
+    } else {
+      navigate("/Signin");
+    }
+  };
+
+  const handlePostOfferClick = () => {
+    if (userData != null) {
+      navigate("/newOffer");
     } else {
       navigate("/Signin");
     }
@@ -30,6 +49,22 @@ function NavBar() {
             </a>
           </div>
           <div className="flex items-center gap-8">
+            {isAdmin && (
+              <button
+                className="flex items-center gap-2 h-10 p-2 rounded-full border-none bg-plaster"
+                onClick={handlePostOfferClick}
+              >
+                <img
+                  src="src/assets/add.svg"
+                  alt="Post Offer"
+                  className="h-8"
+                />
+                <span className="hidden sm:block text-primary font-bold">
+                  Post Offer
+                </span>
+              </button>
+            )}
+
             <BsPersonCircle
               onClick={handleProfileClick}
               className="h-14 w-14 text-secondaryColor cursor-pointer"
