@@ -1,0 +1,42 @@
+.text-container {
+  /* width: 100%; */
+  /* border-bottom: 7px solid black;
+  display: inline; */
+}
+
+h2,
+p {
+  margin-top: 20px;
+  margin: 0px;
+  color: black;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 350px;
+  /* // backgroundColor: "red", */
+}
+
+.groupImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.line {
+  width: 40%;
+  border-bottom: 7px solid #947400;
+}
+.GroupTitle {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.content {
+  font-size: 15px;
+}

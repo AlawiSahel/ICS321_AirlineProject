@@ -1,0 +1,15 @@
+@keyframes shine {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.1);
+    filter: brightness(1.5);
+  }
+}
+
+.star-shine {
+  animation: shine 123s ease-in-out infinite;
+}

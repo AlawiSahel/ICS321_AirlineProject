@@ -1,0 +1,20 @@
+/* custom.css */
+.tag {
+  @apply inline-block bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 !important;
+}
+
+.tagInput {
+  @apply border-none outline-none focus:ring-0 !important;
+}
+
+.tagInputField {
+  @apply w-full border-none outline-none focus:ring-0 !important;
+}
+
+.selected {
+  @apply flex flex-wrap items-center gap-2 !important;
+}
+
+.remove {
+  @apply ml-2 cursor-pointer text-red-500 !important;
+}

@@ -1,0 +1,5 @@
+/* Custom arrow colors */
+.slick-prev:before,
+.slick-next:before {
+  color: #533737 !important; /* Replace #yourColor with the color you want */
+}
