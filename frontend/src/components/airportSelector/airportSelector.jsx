@@ -1,4 +1,4 @@
-// components/airportSelector/airportSelector.jsx
+// components/airportSelector/AirportSelector.jsx
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import axios from "axios";

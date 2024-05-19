@@ -28,6 +28,7 @@
     "react-slick": "^0.30.2",
     "react-tag-input": "^6.9.0",
     "react-tag-input-component": "^2.0.2",
+    "react-time-picker": "^7.0.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.11",
     "swr": "^2.2.5"
