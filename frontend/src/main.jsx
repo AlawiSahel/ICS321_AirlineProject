@@ -15,9 +15,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Profile from "./pages/Profile.jsx";
 import NewOffer from "./pages/NewOffer.jsx";
 import Search from "./pages/Search.jsx";
-import Genre from "./pages/Genre.jsx";
 import MultiStepForm from "./pages/MultiStepForm.jsx";
-import Search from "./pages/Search.jsx"; // Import the updated Search component
 import ManageFlight from "./pages/ManageFlight.jsx"; // Import ManageFlight
 
 const router = createBrowserRouter([
