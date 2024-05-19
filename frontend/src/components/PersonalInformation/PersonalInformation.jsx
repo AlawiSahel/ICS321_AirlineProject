@@ -71,7 +71,14 @@ const PersonalInformation = ({ updateFormData, formData }) => {
   }, []);
 
   useEffect(() => {
-    updateFormData(localFormData);
+    const formattedData = {
+      ...localFormData,
+      dateOfBirth: localFormData.dateOfBirth.toISOString().split("T")[0],
+      documentExpiryDate: localFormData.documentExpiryDate
+        .toISOString()
+        .split("T")[0],
+    };
+    updateFormData(formattedData);
   }, [localFormData, updateFormData]);
 
   const handleInputChange = (e) => {
