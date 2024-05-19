@@ -3,7 +3,6 @@ import Ad from "./../components/ad/Ad.jsx";
 import Footer from "./../components/footer/Footer.jsx";
 import { useState } from "react";
 import DatePicker from "react-date-picker";
-import Select from "react-select";
 import { FaExchangeAlt } from "react-icons/fa";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
@@ -13,14 +12,6 @@ function Home() {
   const [departureCity, setDepartureCity] = useState(null);
   const [arrivalCity, setArrivalCity] = useState(null);
   const [departureDate, setDepartureDate] = useState(new Date());
-  const [arrivalDate, setArrivalDate] = useState(new Date());
-  const [seatClass, setSeatClass] = useState(null);
-
-  const flightClasses = [
-    { value: "guest", label: "Guest Class" },
-    { value: "business", label: "Business Class" },
-    { value: "first", label: "First Class" },
-  ];
 
   const handleCitySwitch = () => {
     const temp = departureCity;
@@ -28,21 +19,36 @@ function Home() {
     setArrivalCity(temp);
   };
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     const requestData = {
       departureCity: departureCity?.value.city,
       arrivalCity: arrivalCity?.value.city,
       departureDate,
-      arrivalDate,
       departureAirport: departureCity?.value.name,
       arrivalAirport: arrivalCity?.value.name,
       departureCountry: departureCity?.value.country,
       arrivalCountry: arrivalCity?.value.country,
-      seatClass: seatClass?.value,
     };
 
-    console.log("Request Data: ", requestData);
-    // Implement search functionality
+    try {
+      const response = await fetch("/api/searchFlights", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Search Results: ", data);
+        // Implement functionality to handle search results
+      } else {
+        console.error("Failed to fetch search results");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -79,22 +85,6 @@ function Home() {
               <DatePicker
                 value={departureDate}
                 onChange={setDepartureDate}
-                className="w-full"
-              />
-            </div>
-            <div className="flex-grow ml-2">
-              <DatePicker
-                value={arrivalDate}
-                onChange={setArrivalDate}
-                className="w-full"
-              />
-            </div>
-            <div className="flex-grow ml-2">
-              <Select
-                options={flightClasses}
-                value={seatClass}
-                onChange={setSeatClass}
-                placeholder="Class"
                 className="w-full"
               />
             </div>
