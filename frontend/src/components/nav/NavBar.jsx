@@ -1,7 +1,7 @@
 import { useDebugValue, useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BsPersonCircle } from "react-icons/bs";
-
+import logo from "../../assets/logo.svg";
 function NavBar() {
   const [userData, setUserData] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -50,7 +50,7 @@ function NavBar() {
         <nav className="flex justify-between items-center px-12 py-2">
           <div className="flex items-center gap-8">
             <a href="/" className="shrink-0">
-              <img src="src/assets/logo.svg" alt="Logo" className="h-14" />
+              <img src={logo} alt="Logo" className="h-14" />
             </a>
           </div>
           <div className="flex items-center gap-8">

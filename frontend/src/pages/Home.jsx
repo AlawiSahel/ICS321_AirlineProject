@@ -1,7 +1,8 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NavBar from "./../components/nav/NavBar.jsx";
 import Ad from "./../components/ad/Ad.jsx";
 import Footer from "./../components/footer/Footer.jsx";
-import { useState } from "react";
 import DatePicker from "react-date-picker";
 import { FaExchangeAlt } from "react-icons/fa";
 import "react-date-picker/dist/DatePicker.css";
@@ -12,6 +13,7 @@ function Home() {
   const [departureCity, setDepartureCity] = useState(null);
   const [arrivalCity, setArrivalCity] = useState(null);
   const [departureDate, setDepartureDate] = useState(new Date());
+  const navigate = useNavigate();
 
   const handleCitySwitch = () => {
     const temp = departureCity;
@@ -23,7 +25,7 @@ function Home() {
     const requestData = {
       departureCity: departureCity?.value.city,
       arrivalCity: arrivalCity?.value.city,
-      departureDate,
+      departureDate: departureDate.toISOString().split("T")[0], // Ensure the date is in the correct format
       departureAirport: departureCity?.value.name,
       arrivalAirport: arrivalCity?.value.name,
       departureCountry: departureCity?.value.country,
@@ -31,7 +33,7 @@ function Home() {
     };
 
     try {
-      const response = await fetch("/api/searchFlights", {
+      const response = await fetch("/api/airline/flights/search", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,8 +43,9 @@ function Home() {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Search Results: ", data);
-        // Implement functionality to handle search results
+        navigate("/search", {
+          state: { flights: data, searchCriteria: requestData },
+        });
       } else {
         console.error("Failed to fetch search results");
       }

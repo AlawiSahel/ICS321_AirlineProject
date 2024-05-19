@@ -5,7 +5,6 @@ import "./index.css";
 import Seller from "./pages/Seller.jsx";
 
 // pages
-
 import Chat from "./pages/Chat.jsx";
 import BookDescription from "./pages/BookDescription.jsx";
 import Home from "./pages/Home.jsx";
@@ -14,10 +13,9 @@ import SignUp from "./pages/SignUp.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Profile from "./pages/Profile.jsx";
-import BooksList from "./pages/BooksList.jsx";
 import NewOffer from "./pages/NewOffer.jsx";
-import Search from "./pages/Search.jsx";
-import Genre from "./pages/Genre.jsx";
+import Search from "./pages/Search.jsx"; // Import the updated Search component
+import ManageFlight from "./pages/ManageFlight.jsx"; // Import ManageFlight
 
 const router = createBrowserRouter([
   {
@@ -49,22 +47,16 @@ const router = createBrowserRouter([
     element: <Profile />,
   },
   {
-    path: "booksList",
-    element: <BooksList />,
-  },
-  {
     path: "newOffer",
     element: <NewOffer />,
   },
-
   {
     path: "search",
-    element: <Search />,
+    element: <Search />, // Ensure this uses the updated Search component
   },
-
   {
-    path: "genre",
-    element: <Genre />,
+    path: "manage-flight/:flightId", // Add route for managing flight
+    element: <ManageFlight />,
   },
 ]);
 
