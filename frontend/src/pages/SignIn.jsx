@@ -62,7 +62,6 @@ function SignIn() {
       return;
     }
 
-    console.log(JSON.stringify(formData));
     try {
       // If the form data is valid, send it to the backend using POST request
       const response = await fetch("/api/airline/users/login", {
@@ -74,7 +73,8 @@ function SignIn() {
       });
 
       if (response.ok) {
-        localStorage.setItem("currentUser", JSON.stringify(formData.email));
+        const data = await response.json();
+        localStorage.setItem("currentUser", data.email); // Store email directly
         navigate("/");
       } else {
         alert("Sign In failed");
