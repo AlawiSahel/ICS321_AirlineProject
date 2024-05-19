@@ -10,14 +10,13 @@ import BookDescription from "./pages/BookDescription.jsx";
 import Home from "./pages/Home.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
-
+import BookWhitelist from "./pages/BookWhitelist.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Profile from "./pages/Profile.jsx";
 import NewOffer from "./pages/NewOffer.jsx";
 import Search from "./pages/Search.jsx";
 import MultiStepForm from "./pages/MultiStepForm.jsx";
 import ManageFlight from "./pages/ManageFlight.jsx"; // Import ManageFlight
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -62,6 +61,10 @@ const router = createBrowserRouter([
   {
     path: "flight",
     element: <MultiStepForm />,
+  },
+  {
+    path: "bookWhitelist",
+    element: <BookWhitelist />,
   },
   {
     path: "*",
