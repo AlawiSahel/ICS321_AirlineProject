@@ -18,7 +18,7 @@ import BooksList from "./pages/BooksList.jsx";
 import NewOffer from "./pages/NewOffer.jsx";
 import Search from "./pages/Search.jsx";
 import Genre from "./pages/Genre.jsx";
-
+import MultiStepForm from "./pages/MultiStepForm.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -65,6 +65,14 @@ const router = createBrowserRouter([
   {
     path: "genre",
     element: <Genre />,
+  },
+  {
+    path: "flight",
+    element: <MultiStepForm />,
+  },
+  {
+    path: "*",
+    element: <div>404 Not Found</div>,
   },
 ]);
 

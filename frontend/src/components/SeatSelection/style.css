@@ -1,0 +1,68 @@
+.seat-selection-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.seats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.seat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 90px;
+  border-radius: 10px;
+  background-color: lightgray;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  position: relative;
+}
+
+.seat.available {
+  background-color: lightgreen;
+}
+
+.seat.unavailable {
+  background-color: lightcoral;
+  cursor: not-allowed;
+}
+
+.seat.selected {
+  border: 2px solid blue;
+  color: white;
+}
+
+.seat.first {
+  background-color: #ffd700; /* Gold for first class */
+}
+
+.seat.business {
+  background-color: #87ceeb; /* Skyblue for business class */
+}
+
+.seat.economy {
+  background-color: #90ee90; /* Lightgreen for economy class */
+}
+
+.seat-class {
+  font-size: 0.75rem;
+  margin-top: 5px;
+  color: black;
+}
+
+.seat-price {
+  font-size: 0.75rem;
+  color: black;
+  position: absolute;
+  bottom: 5px;
+}
