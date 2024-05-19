@@ -18,11 +18,11 @@ const FlightListing = ({ flight, userType }) => {
   const navigate = useNavigate();
 
   const handleBookTicket = () => {
-    navigate(`/book-ticket/${id}`);
+    navigate(`/flight`, { state: { flight } });
   };
 
   const handleBookWaitlist = () => {
-    navigate(`/book-waitlist/${id}`);
+    navigate(`/book-waitlist`, { state: { flight } });
   };
 
   const handleModifyFlight = () => {

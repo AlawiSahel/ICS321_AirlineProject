@@ -63,7 +63,7 @@ const router = createBrowserRouter([
     element: <MultiStepForm />,
   },
   {
-    path: "bookWhitelist",
+    path: "book-waitlist",
     element: <BookWhitelist />,
   },
   {
