@@ -10,11 +10,11 @@ import "react-calendar/dist/Calendar.css";
 import AirportSelector from "./../components/airportSelector/airportSelector.jsx";
 
 function Home() {
-  const [fromCity, setFromCity] = useState(null);
-  const [toCity, setToCity] = useState(null);
+  const [departureCity, setDepartureCity] = useState(null);
+  const [arrivalCity, setArrivalCity] = useState(null);
   const [departureDate, setDepartureDate] = useState(new Date());
   const [arrivalDate, setArrivalDate] = useState(new Date());
-  const [flightClass, setFlightClass] = useState(null);
+  const [seatClass, setSeatClass] = useState(null);
 
   const flightClasses = [
     { value: "guest", label: "Guest Class" },
@@ -23,12 +23,25 @@ function Home() {
   ];
 
   const handleCitySwitch = () => {
-    const temp = fromCity;
-    setFromCity(toCity);
-    setToCity(temp);
+    const temp = departureCity;
+    setDepartureCity(arrivalCity);
+    setArrivalCity(temp);
   };
 
   const handleSearch = () => {
+    const requestData = {
+      departureCity: departureCity?.value.city,
+      arrivalCity: arrivalCity?.value.city,
+      departureDate,
+      arrivalDate,
+      departureAirport: departureCity?.value.name,
+      arrivalAirport: arrivalCity?.value.name,
+      departureCountry: departureCity?.value.country,
+      arrivalCountry: arrivalCity?.value.country,
+      seatClass: seatClass?.value,
+    };
+
+    console.log("Request Data: ", requestData);
     // Implement search functionality
   };
 
@@ -41,8 +54,8 @@ function Home() {
           <div className="flex flex-row items-center mb-4 w-full">
             <div className="flex-grow mr-2">
               <AirportSelector
-                value={fromCity}
-                onChange={setFromCity}
+                value={departureCity}
+                onChange={setDepartureCity}
                 placeholder="From"
               />
             </div>
@@ -54,8 +67,8 @@ function Home() {
             </button>
             <div className="flex-grow ml-2">
               <AirportSelector
-                value={toCity}
-                onChange={setToCity}
+                value={arrivalCity}
+                onChange={setArrivalCity}
                 placeholder="To"
               />
             </div>
@@ -79,8 +92,8 @@ function Home() {
             <div className="flex-grow ml-2">
               <Select
                 options={flightClasses}
-                value={flightClass}
-                onChange={setFlightClass}
+                value={seatClass}
+                onChange={setSeatClass}
                 placeholder="Class"
                 className="w-full"
               />
