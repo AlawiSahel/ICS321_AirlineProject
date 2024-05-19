@@ -7,22 +7,33 @@ import ManageFlightSections from "./../components/ManageFlightSections/ManageFli
 export default function ManageFlight() {
   const { flightId } = useParams();
   const [flight, setFlight] = useState(null);
+  const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFlightData = async () => {
       try {
-        const response = await fetch(`/api/airline/flights/${flightId}`);
-        if (response.ok) {
-          const data = await response.json();
-          setFlight(data);
+        const flightResponse = await fetch(`/api/airline/flights/${flightId}`);
+        if (flightResponse.ok) {
+          const flightData = await flightResponse.json();
+          setFlight(flightData);
         } else {
           console.error("Failed to fetch flight data");
           navigate("/");
         }
+
+        const ticketsResponse = await fetch(
+          `/api/airline/tickets/getFlight/${flightId}`
+        );
+        if (ticketsResponse.ok) {
+          const ticketsData = await ticketsResponse.json();
+          setTickets(ticketsData);
+        } else {
+          console.error("Failed to fetch tickets data");
+        }
       } catch (error) {
-        console.error("Error fetching flight data:", error);
+        console.error("Error fetching flight or tickets data:", error);
         navigate("/");
       } finally {
         setLoading(false);
@@ -39,7 +50,7 @@ export default function ManageFlight() {
         {loading ? (
           <p>Loading flight details...</p>
         ) : flight ? (
-          <ManageFlightSections flight={flight} />
+          <ManageFlightSections flight={flight} tickets={tickets} />
         ) : (
           <p>Flight not found.</p>
         )}
