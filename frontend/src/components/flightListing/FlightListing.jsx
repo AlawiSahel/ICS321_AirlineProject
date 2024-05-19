@@ -12,12 +12,17 @@ const FlightListing = ({ flight, userType }) => {
     arrivalDate,
     departureAirport,
     arrivalAirport,
+    availableSeats,
   } = flight;
 
   const navigate = useNavigate();
 
   const handleBookTicket = () => {
     navigate(`/book-ticket/${id}`);
+  };
+
+  const handleBookWaitlist = () => {
+    navigate(`/book-waitlist/${id}`);
   };
 
   const handleModifyFlight = () => {
@@ -50,6 +55,9 @@ const FlightListing = ({ flight, userType }) => {
               <div className="text-white truncate">
                 Arrival Airport: {arrivalAirport}
               </div>
+              <div className="text-white truncate">
+                Available Seats: {availableSeats}
+              </div>
             </div>
           </div>
           {userType === "ADMIN" ? (
@@ -59,12 +67,19 @@ const FlightListing = ({ flight, userType }) => {
             >
               Manage Flight
             </button>
-          ) : (
+          ) : availableSeats > 0 ? (
             <button
               onClick={handleBookTicket}
               className="mt-4 px-4 py-2 bg-secondaryBackground text-primary rounded-md hover:bg-secondaryBackgroundDark transition duration-200 ease-in-out"
             >
               Book Ticket
+            </button>
+          ) : (
+            <button
+              onClick={handleBookWaitlist}
+              className="mt-4 px-4 py-2 bg-secondaryBackground text-primary rounded-md hover:bg-secondaryBackgroundDark transition duration-200 ease-in-out"
+            >
+              Book Waitlist
             </button>
           )}
         </div>

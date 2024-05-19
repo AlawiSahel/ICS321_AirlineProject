@@ -31,15 +31,45 @@ export default function Search() {
       }
     };
 
-    fetchUserData();
+    const fetchAvailableSeats = async (flightId) => {
+      try {
+        const response = await fetch(
+          `/api/airline/seats/available/${flightId}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          return data.filter((seat) => seat.seatStatus === "AVAILABLE").length;
+        } else {
+          console.error("Failed to fetch available seats");
+          return 0;
+        }
+      } catch (error) {
+        console.error("Error fetching available seats:", error);
+        return 0;
+      }
+    };
 
-    if (location.state && location.state.flights) {
-      setFlightsShown(location.state.flights);
+    const fetchData = async () => {
+      setLoading(true);
+
+      await fetchUserData();
+
+      if (location.state && location.state.flights) {
+        const flights = location.state.flights;
+        const updatedFlights = await Promise.all(
+          flights.map(async (flight) => {
+            const availableSeats = await fetchAvailableSeats(flight.id);
+            return { ...flight, availableSeats };
+          })
+        );
+        setFlightsShown(updatedFlights);
+      }
+
       setLoading(false);
       setSearchCriteria(location.state.searchCriteria || {});
-    } else {
-      setLoading(false);
-    }
+    };
+
+    fetchData();
   }, [location.state]);
 
   const formattedDate = searchCriteria.departureDate
