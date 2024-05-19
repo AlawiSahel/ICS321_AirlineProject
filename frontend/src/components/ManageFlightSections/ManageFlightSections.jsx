@@ -35,32 +35,48 @@ const ManageFlightSections = ({ flight }) => {
           <strong>Arrival Airport:</strong> {flight.arrivalAirport}
         </p>
         <p>
-          <strong>Plane:</strong> `{flight.plane.name} -
-          {flight.plane.aircraft.model} - current airport:
-          {flight.plane.currentAirport} - ID: {flight.plane.id}`
+          <strong>Plane:</strong> {flight.plane.name} -{" "}
+          {flight.plane.aircraft.model} - current airport:{" "}
+          {flight.plane.currentAirport} - ID: {flight.plane.id}
         </p>
       </div>
-      <div className="tabs">
+      <div className="tabs flex space-x-4 mb-6">
         <button
-          className={`tab ${activeSection === "modify" ? "active" : ""}`}
+          className={`px-4 py-2 rounded-md text-white ${
+            activeSection === "modify"
+              ? "bg-primary"
+              : "bg-secondaryColor hover:bg-form"
+          } transition duration-300`}
           onClick={() => setActiveSection("modify")}
         >
           Modify Flight
         </button>
         <button
-          className={`tab ${activeSection === "tickets" ? "active" : ""}`}
+          className={`px-4 py-2 rounded-md text-white ${
+            activeSection === "tickets"
+              ? "bg-primary"
+              : "bg-secondaryColor hover:bg-form"
+          } transition duration-300`}
           onClick={() => setActiveSection("tickets")}
         >
           Modify Tickets
         </button>
         <button
-          className={`tab ${activeSection === "waitlist" ? "active" : ""}`}
+          className={`px-4 py-2 rounded-md text-white ${
+            activeSection === "waitlist"
+              ? "bg-primary"
+              : "bg-secondaryColor hover:bg-form"
+          } transition duration-300`}
           onClick={() => setActiveSection("waitlist")}
         >
           Show Waitlist
         </button>
         <button
-          className={`tab ${activeSection === "report" ? "active" : ""}`}
+          className={`px-4 py-2 rounded-md text-white ${
+            activeSection === "report"
+              ? "bg-primary"
+              : "bg-secondaryColor hover:bg-form"
+          } transition duration-300`}
           onClick={() => setActiveSection("report")}
         >
           Generate Report
