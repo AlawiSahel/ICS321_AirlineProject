@@ -187,7 +187,6 @@ function SignUp() {
         password: formData.password,
         userType: "CUSTOMER",
       };
-      console.log(JSON.stringify(userData));
       const response = await fetch("/api/airline/users/register", {
         method: "POST",
         crossDomain: true,
@@ -198,9 +197,9 @@ function SignUp() {
         body: JSON.stringify(userData),
       });
 
-      // Check if the response status is OK (200-299)
       if (response.ok) {
-        localStorage.setItem("currentUser", JSON.stringify(formData.email));
+        const data = await response.json();
+        localStorage.setItem("currentUser", data.email); // Store email directly
         navigate("/");
       } else {
         alert("Registration failed");

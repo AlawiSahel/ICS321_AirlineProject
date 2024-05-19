@@ -7,20 +7,25 @@ function NavBar() {
   const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
 
+  let username = localStorage.getItem("currentUser");
   useEffect(() => {
-    const fetchUserData = async () => {
-      const email = localStorage.getItem("email");
-      if (email) {
-        try {
-          const response = await axios.get(`/api/user?email=${email}`);
-          setUserData(response.data);
-          setIsAdmin(response.data.userType === "Admin");
-        } catch (error) {
-          console.error("Error fetching user data:", error);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `/api/airline/users/userDetails?email=${username}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setUserData(data);
+          setIsAdmin(data.userType === "ADMIN");
+        } else {
+          throw new Error("Request failed");
         }
+      } catch (error) {
+        console.error(error);
       }
     };
-    fetchUserData();
+    fetchData();
   }, []);
 
   const handleProfileClick = () => {
