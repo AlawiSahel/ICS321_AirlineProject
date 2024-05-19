@@ -17,7 +17,7 @@ const FlightListing = ({ flight, userType }) => {
   const navigate = useNavigate();
 
   const handleBookTicket = () => {
-    navigate(`/book-ticket/${id}`);
+    navigate(`/flight`, { state: { flight } });
   };
 
   const handleModifyFlight = () => {

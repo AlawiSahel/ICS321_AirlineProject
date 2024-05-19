@@ -3,12 +3,17 @@ import axios from "axios";
 import "./style.css";
 const SeatSelection = ({ updateFormData, formData }) => {
   const [seats, setSeats] = useState([]);
-  const [selectedSeat, setSelectedSeat] = useState(formData.seatNumber || "");
+  const [selectedSeat, setSelectedSeat] = useState(
+    formData.seatSelection.seatNumber || ""
+  );
+  const flightID = formData.flight.id;
 
   useEffect(() => {
     const fetchSeats = async () => {
       try {
-        const response = await axios.get("/api/airline/seats/flight/1"); // Replace with actual API URL
+        const response = await axios.get(
+          `/api/airline/seats/flight/${flightID}`
+        ); // Use dynamic flightID
         const sortedSeats = response.data.sort((a, b) => {
           const classOrder = ["FIRST", "BUSINESS", "ECONOMY"];
           return (
