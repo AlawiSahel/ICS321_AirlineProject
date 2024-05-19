@@ -224,7 +224,7 @@ export default function Profile() {
               <input
                 type="button"
                 onClick={() => navigate("/booksList")}
-                value="All Listed Books"
+                value="Flight history"
                 name="last-name"
                 id="last-name"
                 autoComplete="family-name"
@@ -232,19 +232,6 @@ export default function Profile() {
               />
             </div>
             <div className="h-4" />
-
-            <div className="mt-4">
-              <Link to={`/seller?username=${username}`}>
-                <input
-                  type="button"
-                  value="Personal Seller Page"
-                  name="last-name"
-                  id="last-name"
-                  autoComplete="family-name"
-                  className="bg-primary block w-full rounded-md border-0 py-1.5 text-white shadow-sm placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </Link>
-            </div>
           </div>
         </div>
       </div>

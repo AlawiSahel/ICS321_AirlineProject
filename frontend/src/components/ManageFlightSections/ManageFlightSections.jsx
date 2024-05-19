@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import ModifyFlightForm from "./ModifyFlightForm.jsx";
+import ModifyTickets from "./ModifyTickets.jsx";
 
-const ManageFlightSections = ({ flight }) => {
+const ManageFlightSections = ({ flight, tickets }) => {
   const [activeSection, setActiveSection] = useState("modify");
 
   const renderSection = () => {
@@ -9,7 +10,7 @@ const ManageFlightSections = ({ flight }) => {
       case "modify":
         return <ModifyFlightForm flight={flight} />;
       case "tickets":
-      // return <ModifyTickets flight={flight} />;
+        return <ModifyTickets tickets={tickets} />;
       case "waitlist":
       // return <ShowWaitlist flight={flight} />;
       case "report":
