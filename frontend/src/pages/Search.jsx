@@ -33,9 +33,7 @@ export default function Search() {
 
     const fetchAvailableSeats = async (flightId) => {
       try {
-        const response = await fetch(
-          `/api/airline/seats/available/${flightId}`
-        );
+        const response = await fetch(`/api/airline/seats/flight/${flightId}`);
         if (response.ok) {
           const data = await response.json();
           return data.filter((seat) => seat.seatStatus === "AVAILABLE").length;
