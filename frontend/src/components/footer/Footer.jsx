@@ -14,7 +14,7 @@ function Footer() {
           className="bg-offWhite  mt-auto p-4"
         >
           <div className="flex  justify-center items-center gap-4 max-sm:flex-col">
-            <div>© 2024 Rofouf. All rights reserved</div>
+            <div>© 2024 Omar Airlines. All rights reserved</div>
 
             <div className="flex gap-2 rounded-xl p-2 bg-lightBrown50">
               <div>

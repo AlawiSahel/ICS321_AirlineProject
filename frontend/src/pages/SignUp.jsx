@@ -6,13 +6,14 @@ import { useState } from "react";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { useNavigate } from "react-router-dom";
+import { FaPhoneAlt } from "react-icons/fa";
 import Select from "react-select";
 
 function SignUp() {
   const titleOptions = [
-    { value: "mr", label: "Mr." },
-    { value: "mrs", label: "Mrs." },
-    { value: "miss", label: "Miss" },
+    { value: "Mr.", label: "Mr." },
+    { value: "Mrs.", label: "Mrs." },
+    { value: "Ms.", label: "Ms." },
   ];
 
   const [formData, setFormData] = useState({
@@ -184,30 +185,29 @@ function SignUp() {
         email: formData.email,
         phone: formData.phone,
         password: formData.password,
+        userType: "CUSTOMER",
       };
       console.log(JSON.stringify(userData));
-      fetch("http://localhost:5000/api/v1/users/signup", {
+      const response = await fetch("/api/airline/users/register", {
         method: "POST",
         crossDomain: true,
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify(userData),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.status === 200) {
-            localStorage.setItem("currentUser", JSON.stringify(userData.email));
-            console.log(data);
-            navigate("/");
-          } else {
-            alert(data.message, "userRegister");
-          }
-        });
+      });
+
+      // Check if the response status is OK (200-299)
+      if (response.ok) {
+        localStorage.setItem("currentUser", JSON.stringify(formData.email));
+        navigate("/");
+      } else {
+        alert("Registration failed");
+      }
     } catch (error) {
-      console.error(error);
+      console.error("Error:", error);
+      alert("An unexpected error occurred. Please try again.");
     }
   };
 
@@ -359,7 +359,7 @@ function SignUp() {
                           htmlFor="phone"
                           className={`absolute text-base dark:peer-focus:text-primary text-white duration-200 transform -translate-y-4 scale-85 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-90 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 ${formData.phone && "text-primary"}`}
                         >
-                          <HiMail className="text-primary" /> Phone Number
+                          <FaPhoneAlt className="text-primary" /> Phone Number
                         </label>
                         {errorMessages.phone && (
                           <span className="text-red-500 text-xs mt-1">
