@@ -11,7 +11,7 @@ const PlaneSelector = ({ value, onChange, placeholder }) => {
     const fetchPlanes = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("/airline/planes");
+        const response = await axios.get("/api/airline/planes");
         const planeOptions = response.data.map((plane) => ({
           value: plane.id,
           label: `${plane.name} - ${plane.aircraft.model} - current airport: ${plane.currentAirport} - ID: ${plane.id}`,
